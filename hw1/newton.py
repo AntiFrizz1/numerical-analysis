@@ -19,19 +19,25 @@ def find_root_using_newton_method(x0, eps):
     return x1
 
 
+xa = []
+ya = []
+ca = []
+
+
 def add_point(x):
-    point = find_root_using_newton_method(x, 0.01)
+    point = find_root_using_newton_method(x, 0.001)
+    xa.append(x.real)
+    ya.append(x.imag)
     if (point.real < 0) and (point.imag > 0):
         color = "green"
     elif (point.real < 0) and (point.imag < 0):
         color = "red"
     else:
         color = "blue"
-    plt.scatter(x.real, x.imag, c=color, s=1)
+    ca.append(color)
 
 
-fig = plt.figure()
-
+fig = plt.figure(num=None, figsize=(10, 10), dpi=100, facecolor='w', edgecolor='k')
 
 delta = 0.01
 
@@ -42,5 +48,6 @@ while i <= 2.0:
         add_point(complex(i, j))
         j += delta
     i += delta
+plt.scatter(xa, ya, c=ca, s=1.5)
 
-plt.show() 
+plt.show()

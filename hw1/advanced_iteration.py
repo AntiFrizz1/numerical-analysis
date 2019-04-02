@@ -9,10 +9,8 @@ def calculation(r, x):
     return r * x * (1 - x)
 
 
-'''
 def derivation(r, x):
     return r * (1 - 2 * x)
-'''
 
 
 def find_root_using_iterative_method(x0, r, n):
@@ -36,7 +34,7 @@ def validate_r1(r1):
     step = 0.01
 
     while i < r1:
-        x, table = find_root_using_iterative_method(0.9, i, 10000)
+        x, table = find_root_using_iterative_method(0.55, i, 10000)
         i += step
         if math.fabs(x) > delta:
             return False
@@ -44,7 +42,7 @@ def validate_r1(r1):
     return True
 
 
-def is_monotone(array, ra):
+def is_monotone(array):
     if len(array) < 3:
         return True
 
@@ -64,8 +62,8 @@ def validate_r2(r1, r2):
     i = r1 + step
 
     while i < r2:
-        x, table = find_root_using_iterative_method(0.9, i, 10000)
-        if not (is_monotone(table, r2) and math.fabs(x - get_x2(i)) < delta):
+        x, table = find_root_using_iterative_method(0.55, i, 10000)
+        if not (is_monotone(table) and math.fabs(x - get_x2(i)) < delta):
             return False
         i += step
 
@@ -77,7 +75,7 @@ def validate_r3(r2, r3):
     i = r2 + step
 
     while i < r3:
-        x, table = find_root_using_iterative_method(0.9, i, 10000)
+        x, table = find_root_using_iterative_method(0.55, i, 10000)
         if not (math.fabs(x - get_x2(i)) < delta):
             return False
         i += step
@@ -142,18 +140,18 @@ def draw_plot(r, x0):
     plt.axhline(color="black")
     plt.axvline(color="black")
 
-    x = numpy.linspace(-1, 1, num=1000)
+    x = numpy.linspace(0, 1, num=1000)
 
     plt.plot(x, r * x * (1 - x))
 
-    x = numpy.linspace(-1, 1, num=10)
+    x = numpy.linspace(0, 1, num=10)
 
     plt.plot(x, x)
 
     x = [x0]
     y = [0]
     i = 0
-    while i < 5:
+    while i < 100:
         y0 = calculation(r, x0)
         x.append(x0)
         y.append(y0)
@@ -172,25 +170,71 @@ def draw_plot(r, x0):
     plt.clf()
 
 
+def draw_something():
+    x = numpy.linspace(-1, 1, num=1000)
+    r = 0.5
+    plt.subplot(221)
+    plt.plot(x, r * x * (1 - x))
+    plt.axhline(color="black")
+    plt.axvline(color="black")
+
+    x = numpy.linspace(-1, 1, num=10)
+    plt.plot(x, x)
+
+    x = numpy.linspace(-0.25, 0.5, num=1000)
+    r = 1.5
+    plt.subplot(222)
+    plt.plot(x, r * x * (1 - x))
+    plt.axhline(color="black")
+    plt.axvline(color="black")
+
+    x = numpy.linspace(-0.25, 0.5, num=10)
+    plt.plot(x, x)
+
+    x = numpy.linspace(-0.5, 1, num=1000)
+    r = 2.5
+    plt.subplot(223)
+    plt.plot(x, r * x * (1 - x))
+    plt.axhline(color="black")
+    plt.axvline(color="black")
+
+    x = numpy.linspace(-0.5, 1, num=10)
+    plt.plot(x, x)
+
+    x = numpy.linspace(-0.5, 1, num=1000)
+    r = 3.5
+    plt.subplot(224)
+    plt.plot(x, r * x * (1 - x))
+    plt.axhline(color="black")
+    plt.axvline(color="black")
+
+    x = numpy.linspace(-0.5, 1, num=10)
+    plt.plot(x, x)
+
+    plt.show()
+    plt.clf()
+
+
 def draw_plot_lim_x_to_r():
     r = 0.0
     step_r = 0.05
     while r < 4:
-        x = 0.8
+        x = 0.55
         l_x, table = find_root_using_iterative_method(x, r, 10000)
         for i in table[9990:]:
-            plt.scatter(r, i, c="green",s=2)
+            plt.scatter(r, i, c="green", s=2)
         r += step_r
 
     plt.show()
     plt.clf()
 
+
 if __name__ == "__main__":
     #main()
 
-    fig = plt.figure()
+    fig = plt.figure(num=None, figsize=(10, 6), dpi=100, facecolor='w', edgecolor='k')
 
     #draw_plot_by_r(0.5, 0.5, 10)
-    draw_plot(1.2, 0.2)
+    #draw_plot(2.8, 0.2)
     #draw_plot_lim_x_to_r()
-
+    draw_something()
