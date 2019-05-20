@@ -1,4 +1,4 @@
-from matlib import *
+from lib import *
 
 
 def main():

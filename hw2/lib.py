@@ -51,3 +51,4 @@ def print_conditions(A, x, b):
             row += "({0} * {1}) + ".format(str(A[i][j]), x[j])
         row += "({0} * {1}) = {2}".format(str(A[i][-1]), x[-1], str(b[i]))
         print(row)
+
