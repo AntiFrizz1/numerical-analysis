@@ -1,6 +1,7 @@
 import lib
 import numpy
 
+
 def prepare_system(matrix, vector):
     for i in range(len(matrix)):
         if matrix[i][i] == 0:
