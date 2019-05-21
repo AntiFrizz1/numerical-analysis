@@ -80,3 +80,34 @@ def print_conditions(A, x, b):
 
 def enorm(matrix):
     return numpy.linalg.norm(matrix, ord=2)
+
+
+def condition_number(matrix):
+    # matrix = numpy.array(matrix)
+    return enorm(matrix) * enorm(numpy.linalg.inv(matrix))
+
+
+def generate_conditional_matrix(size):
+    matrix = numpy.eye(size, dtype=numpy.double) + numpy.random.normal(scale=0.1, size=(size, size))
+    return matrix.tolist()
+
+
+def generate_random_matrix(size):
+    matrix = numpy.random.uniform(-1, 1, size=(size, size))
+    return matrix.tolist()
+
+
+def generate_gilbert_matrix(size):
+    matrix = []
+    for i in range(size):
+        matrix.append([0] * size)
+
+    for i in range(size):
+        for j in range(size):
+            matrix[i][j] = 1 / (1 + i + j)
+
+    return matrix
+
+
+def generate_vector(size):
+    return numpy.random.uniform(-10, 10, size=size).tolist()
