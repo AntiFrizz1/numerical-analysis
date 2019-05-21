@@ -31,17 +31,19 @@ def run_gradient_method(A, b):
         for i in range(size):
             direction[i] = residuals[i] + tmp[i]
 
-    print("Результат для метода сопряженных градиентов:",
-          *approximations,
-          "Количество шагов: {0}".format(steps),
-          sep='\n'
-          )
+    # print("Результат для метода сопряженных градиентов:",
+    #       *approximations,
+    #       "Количество шагов: {0}".format(steps),
+    #       sep='\n'
+    #       )
+    return approximations, steps
 
 
 def main():
-    A = generate_conditional_matrix(3)
-    b = generate_vector(3)
+    A = generate_random_matrix(5)
+    b = generate_vector(5)
     run_gradient_method(A, b)
+
 
 if __name__ == "__main__":
     main()
