@@ -5,10 +5,10 @@ using namespace std;
 
 int n;
 
-vector<vector<double>> findmaxandswap(int ch, vector<vector<double>> system) {
-    double max = -99999.0;
+vector<vector<double>> findMaxAndSwap(int ch, vector<vector<double>> &system) {
+    double max = system[0][ch];
     int pos = -1;
-    for (int i = 0; i < n; i++) {
+    for (int i = 1; i < n; i++) {
         if (system[i][ch] > max) {
             max = system[i][ch];
             pos = i;
@@ -20,7 +20,7 @@ vector<vector<double>> findmaxandswap(int ch, vector<vector<double>> system) {
     return system;
 }
 
-vector<vector<double>> makenull(int ch, vector<vector<double>> system) {
+vector<vector<double>> makeNull(int ch, vector<vector<double>> &system) {
     for (int i = 0; i < n; i++) {
         if (ch == i) continue;
         double tmp = system[i][ch];
@@ -31,14 +31,14 @@ vector<vector<double>> makenull(int ch, vector<vector<double>> system) {
     return system;
 }
 
-vector<vector<double>> solve(vector<vector<double>> system) {
+vector<vector<double>> solve(vector<vector<double>> &system) {
     int ch = 0;
     while (ch < n) {
-        system = findmaxandswap(ch, system);
+        system = findMaxAndSwap(ch, system);
         for (int i = n; i >= 0; i--) {
             system[ch][i] /= system[ch][ch];
         }
-        system = makenull(ch, system);
+        system = makeNull(ch, system);
         ch++;
     }
     return system;
