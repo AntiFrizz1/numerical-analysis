@@ -1,7 +1,17 @@
 from lib import *
+import numpy
+
+
+def check_matrix_condition(matrix):
+    matrix = numpy.array(matrix)
+    matrix = matrix @ matrix.T
+    return numpy.all(numpy.linalg.eigvals(matrix) > 0)
 
 
 def run_gradient_method(A, b):
+    if not check_matrix_condition(A):
+        raise RuntimeError("Matrix does not satisfy conditions\n")
+
     eps = 10 ** -9
     size = len(b)
 

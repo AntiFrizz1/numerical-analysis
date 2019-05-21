@@ -1,4 +1,3 @@
-import random
 import numpy
 
 
@@ -70,12 +69,12 @@ def condition_number(matrix):
 
 def generate_conditional_matrix(size):
     matrix = numpy.eye(size, dtype=numpy.double) + numpy.random.normal(scale=0.1, size=(size, size))
-    return matrix.tolist()
+    return (matrix @ matrix.T).tolist()
 
 
 def generate_random_matrix(size):
     matrix = numpy.random.uniform(-1, 1, size=(size, size))
-    return matrix.tolist()
+    return (matrix @ matrix.T).tolist()
 
 
 def generate_gilbert_matrix(size):
