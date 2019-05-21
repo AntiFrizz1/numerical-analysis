@@ -45,18 +45,21 @@ vector<vector<double>> solve(vector<vector<double>> &system) {
 }
 
 int main() {
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
     cin >> n;
     vector<vector<double>> system;
     system.resize(n);
     for (int i = 0; i < n; i++) {
         system[i].resize(n + 1);
-        for (int j = 0; j < n + 1; j++) {
+        for (int j = 0; j < n; j++) {
             double tmp;
             cin >> tmp;
             system[i][j] = tmp;
         }
+    }
+    for (int i = 0; i < n; i++){
+        double tmp;
+        cin >> tmp;
+        system[i][n] = tmp;
     }
     system = solve(system);
     for (int i = 0; i < n; i++) {
