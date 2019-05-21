@@ -1,4 +1,5 @@
 import random
+import numpy
 
 
 def random_matrix_generation():
@@ -43,6 +44,10 @@ def num_on_vector(num, vector):
     return [num * item for item in vector]
 
 
+def div_vector_on_num(num, vector):
+    return [item / num for item in vector]
+
+
 def sum_matrix(matrix1, matrix2):
     answer = []
 
@@ -55,13 +60,12 @@ def sum_matrix(matrix1, matrix2):
     return answer
 
 
-def minus_vectors(vector1, vector2):
+def subtract_vectors(vector1, vector2):
     answer = []
     for i in range(len(vector1)):
         answer.append(vector1[i] - vector2[i])
 
     return answer
-
 
 
 def print_conditions(A, x, b):
@@ -73,3 +77,6 @@ def print_conditions(A, x, b):
         row += "({0} * {1}) = {2}".format(str(A[i][-1]), x[-1], str(b[i]))
         print(row)
 
+
+def enorm(matrix):
+    return numpy.linalg.norm(matrix, ord=2)
