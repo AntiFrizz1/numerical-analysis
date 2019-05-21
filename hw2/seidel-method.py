@@ -1,12 +1,15 @@
 import lib
+import numpy
 
 def prepare_system(matrix, vector):
     for i in range(len(matrix)):
-        if (len(matrix) != len(matrix[i])) or matrix[i][i] == 0:
-            raise RuntimeError('incorrect matrix: ' + matrix)
+        if matrix[i][i] == 0:
+            raise RuntimeError('The matrix has zero on main diagonal')
+        if len(matrix) != len(matrix[i]):
+            raise RuntimeError('The matrix isn\'t square sized')
 
     if len(matrix) != len(vector):
-        raise RuntimeError('incorrect matrix: ' + matrix + '. And vector: ' + vector)
+        raise RuntimeError('Different size between matrix and vector')
 
     b_matrix = []
     c_vector = []
@@ -30,34 +33,54 @@ def prepare_system(matrix, vector):
 
 def split_matrix(matrix):
     matrix1 = []
+    matrix2 = []
     n = len(matrix)
 
     for i in range(n):
-        vector = []
+        vector1 = []
+        vector2 = []
         for j in range(n):
-            if i < j:
-                vector.append(matrix[i][j])
-                matrix[i][j] = 0
+            if i > j:
+                vector1.append(matrix[i][j])
+                vector2.append(0)
             else:
-                vector.append(0)
-        matrix1.append(vector)
+                vector1.append(0)
+                vector2.append(matrix[i][j])
+        matrix1.append(vector1)
+        matrix2.append(vector2)
 
-    return matrix1
+    return matrix1, matrix2
 
 
-def seidel_method(matrix, vector, iterations):
-    matrix1 = split_matrix(matrix)
-    print(matrix)
-    print(matrix1)
+def seidel_method(matrix, vector, eps=1e-9):
+    matrix1, matrix2 = split_matrix(matrix)
     n = len(matrix)
+    if lib.enorm(matrix1) + lib.enorm(matrix2) >= 1:
+        raise RuntimeError("Algorithm can't work with this matrix")
+
+    q = lib.enorm(matrix2) / (1 - lib.enorm(matrix1))
 
     answers = [0] * n
-    for it in range(iterations):
-        new_answers = [0] * n
-        for i in range(n):
-            new_answers[i] = lib.vector_on_vector(matrix[i], new_answers)\
-                             + lib.vector_on_vector(matrix1[i], answers) + vector[i]
-        answers = new_answers
-        print(answers)
 
-    return answers
+    f = True
+    iterations = 0
+    while f:
+        new_answers = [0] * n
+        iterations += 1
+        for i in range(n):
+            new_answers[i] = lib.vector_on_vector(matrix1[i], new_answers) \
+                             + lib.vector_on_vector(matrix2[i], answers) + vector[i]
+
+        if lib.enorm(lib.subtract_vectors(new_answers, answers)) * q < eps:
+            f = False
+        answers = new_answers
+
+    return answers, iterations
+
+
+if __name__ == '__main__':
+    A, x, b, size = [[311, 32, 12], [12, 1212, 23], [12, 12, 1000]], [1, 1, 1], [2, 3, 4], 3
+
+    new_B, new_c = prepare_system(A, b)
+    ans, it = seidel_method(new_B, new_c)
+    print(ans, it)
