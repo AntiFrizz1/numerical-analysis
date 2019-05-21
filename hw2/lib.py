@@ -2,25 +2,6 @@ import random
 import numpy
 
 
-def random_matrix_generation():
-    size = random.randint(2, 4)
-
-    A = []
-    x = []
-    b = []
-
-    for i in range(size):
-        A.append([random.randint(-10, 10) for j in range(size)])
-
-    for i in range(size):
-        x.append("x{0}".format(i))
-
-    for i in range(size):
-        b.append(random.randint(-10, 10))
-
-    return A, x, b, size
-
-
 def matrix_on_vector(matrix, vector):
     ans = []
 
