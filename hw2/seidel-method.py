@@ -1,3 +1,5 @@
+import lib
+
 def prepare_system(matrix, vector):
     for i in range(len(matrix)):
         if (len(matrix) != len(matrix[i])) or matrix[i][i] == 0:
@@ -53,25 +55,9 @@ def seidel_method(matrix, vector, iterations):
     for it in range(iterations):
         new_answers = [0] * n
         for i in range(n):
-            new_answers[i] = multiply_vectors(matrix[i], new_answers) + multiply_vectors(matrix1[i], answers) + vector[
-                i]
+            new_answers[i] = lib.vector_on_vector(matrix[i], new_answers)\
+                             + lib.vector_on_vector(matrix1[i], answers) + vector[i]
         answers = new_answers
         print(answers)
 
     return answers
-
-
-def multiply_vectors(vector1, vector2):
-    ans = 0
-    for i in range(len(vector1)):
-        ans += (vector1[i] * vector2[i])
-
-    return ans
-
-
-def minus_vector(vector1, vector2):
-    answer = []
-    for i in range(len(vector1)):
-        answer.append(vector1[i] - vector2[i])
-
-    return answer
