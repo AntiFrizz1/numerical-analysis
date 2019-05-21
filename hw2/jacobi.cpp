@@ -78,7 +78,7 @@ vector<vector<double>> create_dm_matrix(vector<vector<double>> matrix) {
 vector<vector<double>> minus_matrix(vector<vector<double>> matrix1, vector<vector<double>> matrix2) {
     for (int i = 0; i < matrix_size; i++) {
         for (int j = 0; j < matrix_size; j++) {
-                matrix1[i][j] -= matrix2[i][j];
+            matrix1[i][j] -= matrix2[i][j];
         }
     }
     return matrix1;
@@ -103,7 +103,7 @@ int main() {
     cin >> matrix_size;
     cin >> eps;
     vector<vector<double>> matrix;
-    matrix.reserve(matrix_size);
+    matrix.resize(matrix_size);
     for (int i = 0; i < matrix_size; i++) {
         matrix[i].resize(matrix_size);
         for (int j = 0; j < matrix_size; j++) {
