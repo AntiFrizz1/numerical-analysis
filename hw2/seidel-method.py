@@ -1,5 +1,6 @@
 import lib
 
+
 def prepare_system(matrix, vector):
     for i in range(len(matrix)):
         if (len(matrix) != len(matrix[i])) or matrix[i][i] == 0:
