@@ -1,5 +1,4 @@
 import lib
-import numpy
 
 
 def prepare_system(matrix, vector):
@@ -54,6 +53,10 @@ def split_matrix(matrix):
 
 
 def seidel_method(matrix, vector, eps=1e-9):
+    return seidel_method_with_relax(matrix, vector, eps, 1)
+
+
+def seidel_method_with_relax(matrix, vector, eps=1e-9, w=0.9):
     matrix1, matrix2 = split_matrix(matrix)
     n = len(matrix)
     if lib.enorm(matrix1) + lib.enorm(matrix2) >= 1:
@@ -69,8 +72,8 @@ def seidel_method(matrix, vector, eps=1e-9):
         new_answers = [0] * n
         iterations += 1
         for i in range(n):
-            new_answers[i] = lib.vector_on_vector(matrix1[i], new_answers) \
-                             + lib.vector_on_vector(matrix2[i], answers) + vector[i]
+            new_answers[i] = (1 - w) * answers[i] + w * lib.vector_on_vector(matrix1[i], new_answers) \
+                             + w * lib.vector_on_vector(matrix2[i], answers) + w * vector[i]
 
         if lib.enorm(lib.subtract_vectors(new_answers, answers)) * q < eps:
             f = False
@@ -80,8 +83,12 @@ def seidel_method(matrix, vector, eps=1e-9):
 
 
 if __name__ == '__main__':
-    A, x, b, size = [[311, 32, 12], [12, 1212, 23], [12, 12, 1000]], [1, 1, 1], [2, 3, 4], 3
+    A = lib.generate_conditional_matrix(5)
+    b = lib.generate_vector(5)
 
     new_B, new_c = prepare_system(A, b)
     ans, it = seidel_method(new_B, new_c)
+    print(ans, it)
+
+    ans, it = seidel_method_with_relax(new_B, new_c)
     print(ans, it)
