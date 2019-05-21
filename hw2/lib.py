@@ -43,6 +43,27 @@ def num_on_vector(num, vector):
     return [num * item for item in vector]
 
 
+def sum_matrix(matrix1, matrix2):
+    answer = []
+
+    for i in range(len(matrix1)):
+        vec = []
+        for j in range(len(matrix1[i])):
+            vec.append(matrix1[i][j] + matrix2[i][j])
+        answer.append(vec)
+
+    return answer
+
+
+def minus_vectors(vector1, vector2):
+    answer = []
+    for i in range(len(vector1)):
+        answer.append(vector1[i] - vector2[i])
+
+    return answer
+
+
+
 def print_conditions(A, x, b):
     size = len(A)
     for i in range(size):
