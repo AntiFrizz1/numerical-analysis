@@ -108,3 +108,6 @@ def generate_gilbert_matrix(size):
 
     return matrix
 
+
+def generate_vector(size):
+    return numpy.random.uniform(-10, 10, size=size).tolist()

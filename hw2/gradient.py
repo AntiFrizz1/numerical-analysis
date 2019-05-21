@@ -1,17 +1,10 @@
 from lib import *
 
 
-def main():
+def run_gradient_method(A, b):
     eps = 10 ** -9
-    generated = random_matrix_generation()
+    size = len(b)
 
-    A, x, b, size = generated[0], generated[1], generated[2], generated[3]
-    # A = [[2, 1], [0, 1]]
-    # x = ['x0', 'x1']
-    # b = [3, 1]
-    # size = 2
-    print("Generated values:")
-    print_conditions(A, x, b)
     approximations = [0] * size
     residuals = [i for i in b]
     direction = [i for i in b]
@@ -38,8 +31,17 @@ def main():
         for i in range(size):
             direction[i] = residuals[i] + tmp[i]
 
-    print("Результат для метода сопряженных градиентов:", approximations, "Количество шагов: {0}".format(steps), sep='\n')
+    print("Результат для метода сопряженных градиентов:",
+          *approximations,
+          "Количество шагов: {0}".format(steps),
+          sep='\n'
+          )
 
+
+def main():
+    A = generate_conditional_matrix(3)
+    b = generate_vector(3)
+    run_gradient_method(A, b)
 
 if __name__ == "__main__":
     main()
