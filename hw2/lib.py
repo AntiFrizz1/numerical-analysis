@@ -90,4 +90,4 @@ def generate_gilbert_matrix(size):
 
 
 def generate_vector(size):
-    return numpy.random.uniform(-10, 10, size=size).tolist()
+    return [1] * size

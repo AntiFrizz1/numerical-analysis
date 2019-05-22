@@ -57,9 +57,10 @@ def seidel_method(matrix, vector, eps=1e-9):
 
 
 def seidel_method_with_relax(matrix, vector, eps=1e-9, w=0.9):
-    matrix1, matrix2 = split_matrix(matrix)
+    m, v = prepare_system(matrix, vector)
+    matrix1, matrix2 = split_matrix(m)
     n = len(matrix)
-    if lib.enorm(matrix1) + lib.enorm(matrix2) >= 1:
+    if lib.enorm(m) >= 1:
         raise RuntimeError("Algorithm can't work with this matrix")
 
     q = lib.enorm(matrix2) / (1 - lib.enorm(matrix1))
@@ -73,7 +74,7 @@ def seidel_method_with_relax(matrix, vector, eps=1e-9, w=0.9):
         iterations += 1
         for i in range(n):
             new_answers[i] = (1 - w) * answers[i] + w * lib.vector_on_vector(matrix1[i], new_answers) \
-                             + w * lib.vector_on_vector(matrix2[i], answers) + w * vector[i]
+                             + w * lib.vector_on_vector(matrix2[i], answers) + w * v[i]
 
         if lib.enorm(lib.subtract_vectors(new_answers, answers)) * q < eps:
             f = False

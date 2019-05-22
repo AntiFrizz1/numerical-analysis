@@ -8,11 +8,9 @@ def check_matrix_condition(matrix):
     return numpy.all(numpy.linalg.eigvals(matrix) > 0)
 
 
-def run_gradient_method(A, b):
+def run_gradient_method(A, b, eps):
     if not check_matrix_condition(A):
         raise RuntimeError("Matrix does not satisfy conditions\n")
-
-    eps = 10 ** -9
     size = len(b)
 
     approximations = [0] * size

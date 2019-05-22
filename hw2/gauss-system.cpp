@@ -1,22 +1,21 @@
 #include <iostream>
 #include <vector>
+#include <iomanip>
 
 using namespace std;
 
 int n;
 
 vector<vector<double>> findMaxAndSwap(int ch, vector<vector<double>> system) {
-    double max = system[0][ch];
-    int pos = 0;
-    for (int i = 1; i < n; i++) {
+    double max = system[ch][ch];
+    int pos = ch;
+    for (int i = ch; i < n; i++) {
         if (system[i][ch] > max) {
             max = system[i][ch];
             pos = i;
         }
     }
-    for (int i = 0; i < n + 1; i++) {
-        swap(system[pos][i], system[ch][i]);
-    }
+    swap(system[pos], system[ch]);
     return system;
 }
 
@@ -35,8 +34,9 @@ vector<vector<double>> solve(vector<vector<double>> system) {
     int ch = 0;
     while (ch < n) {
         system = findMaxAndSwap(ch, system);
+        double tmp = system[ch][ch];
         for (int i = n; i >= 0; i--) {
-            system[ch][i] /= system[ch][ch];
+            system[ch][i] /= tmp;
         }
         system = makeNull(ch, system);
         ch++;
@@ -62,8 +62,9 @@ int main() {
         system[i][n] = tmp;
     }
     system = solve(system);
+    cout << fixed;
     for (int i = 0; i < n; i++) {
-        cout << system[i][n] << ' ';
+        cout << setprecision(16) << system[i][n] << ' ';
     }
     return 0;
 }

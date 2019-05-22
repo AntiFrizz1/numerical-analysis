@@ -2,6 +2,7 @@
 #include <vector>
 #include <ctime>
 #include <cmath>
+#include <iomanip>
 
 using namespace std;
 
@@ -119,11 +120,14 @@ int main() {
     if (check_norm(mul_matrix(create_dm_matrix(d), minus_matrix(d, matrix))) < 1) {
         iteration_count = 0;
         vector<double> ans = solution(matrix, right);
+        cout << std::fixed;
         for (double an : ans) {
-            cout << an << " ";
+            cout << setprecision(16) << an << " ";
         }
         cout << endl;
         cout << iteration_count << endl;
+    } else {
+        return -1;
     }
     return 0;
 }
