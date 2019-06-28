@@ -26,11 +26,12 @@ def run(t, pa, pg, epsil=1e-4):
     global elements
     global f
     global f_prime
-
-    x1 = [10, 10, 10, 10, 10]
+    global x1
 
     pe, iterations = lib.newton_method(elements, f, f_prime, x1, t, pa, pg, epsil)
     g_dict = dict()
+
+    x1 = lib.dict_to_vector(pe, elements)
 
     for i in ['GaCl', 'GaCl2', 'GaCl3']:
         g_dict[i] = lib.g(i, pe, t, pa, pg)
@@ -125,6 +126,8 @@ if __name__ == '__main__':
         ]
     ]
 
+    x1 = [0, 0, 1, 10, 10]
+
     pa1 = 100000
     pg1 = {
         'GaCl': 0,
@@ -136,7 +139,7 @@ if __name__ == '__main__':
 
     t1 = 650 + 273.15
     t2 = 950 + 273.15
-    eps = 0.0000001
+    eps = 0.00001
     time = numpy.arange(1 / t2, 1 / t1, step=1e-5)
 
     answers = []
@@ -153,19 +156,19 @@ if __name__ == '__main__':
         g_GaCl2.append(-g['GaCl2'])
         g_GaCl3.append(-g['GaCl3'])
 
-    plt.plot(time, g_GaCl)
-    plt.plot(time, g_GaCl2)
-    plt.plot(time, g_GaCl3)
+    plt.plot(time, g_GaCl, linestyle="-")
+    plt.plot(time, g_GaCl2, linestyle="--")
+    plt.plot(time, g_GaCl3, linestyle="-.")
     plt.legend((r'$-G_{GaCl}$', r'$-G_{GaCl_2}$', r'$-G_{GaCl_3}$'))
-    plt.xlabel(r'$T^{-1}$')
-    plt.ylabel(r'$-G_i$', rotation=0)
-    plt.yscale('symlog')
-    plt.yticks([0, 1e-6, 5e-6, 1e-5, 5e-5])
+    plt.xlabel(r'$T^{-1}, К^{-1}$')
+    plt.ylabel(r'$-G_i, кмоль/(м^{2}*с)$')
+    plt.yscale('log')
     plt.grid(True)
     plt.show()
 
     plt.plot(time, v_e_Ga)
-    plt.xlabel(r'$T^{-1}$')
-    plt.ylabel(r'$-V_{Ga}$', rotation=0)
+    plt.xlabel(r'$T^{-1}, К^{-1}$')
+    plt.ylabel(r'$-V_{Ga}, нм/с$')
+    plt.yscale('log')
     plt.grid(True)
     plt.show()

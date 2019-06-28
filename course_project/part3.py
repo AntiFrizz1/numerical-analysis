@@ -163,23 +163,23 @@ if __name__ == '__main__':
         xp.append(x_)
 
     xp1 = xp
-    plt.plot(x, xp, color='red')
-    plt.ylabel('$x$', rotation=0)
-    plt.xlabel('$x_{g}$')
+    plt.plot(x, xp, color='blue')
+    plt.ylabel('Доля $AlN$ в твердом растворе')
+    plt.xlabel('Доля $AlCl_3$ в газообразных хлоридах')
     plt.grid(True)
     plt.show()
 
     plt.plot(x, g_GaCl, color='blue')
     plt.plot(x, g_AlCl3, color='green')
-    plt.legend((r'$G_{GaCl3}$', '$G_{AlCl}$'))
-    plt.xlabel('$x_{g}$')
-    plt.ylabel('$G_i$', rotation=0)
+    plt.legend((r'$G_{GaCl}$', '$G_{AlCl_3}$'))
+    plt.xlabel('Доля $AlCl_3$ в газообразных хлоридах')
+    plt.ylabel('$G_i, кмоль/(м^{2}*с)$')
     plt.grid(True)
     plt.show()
 
-    plt.plot(x, v_e_AlGaN, color='yellow')
-    plt.xlabel('$x_{g}$')
-    plt.ylabel('$v^{e}_{AlGaN}$', rotation=0)
+    plt.plot(x, v_e_AlGaN, color='blue')
+    plt.xlabel('Доля $AlCl_3$ в газообразных хлоридах')
+    plt.ylabel('$v_{AlGaN}, нм/с$')
     plt.grid(True)
     plt.show()
 
@@ -201,23 +201,23 @@ if __name__ == '__main__':
 
     xp2 = xp
 
-    plt.plot(x, xp, color='red')
-    plt.ylabel('$x$', rotation=0)
-    plt.xlabel('$x_{g}$')
+    plt.plot(x, xp, color='blue')
+    plt.ylabel('Доля $AlN$ в твердом растворе')
+    plt.xlabel('Доля $AlCl_3$ в газообразных хлоридах')
     plt.grid(True)
     plt.show()
 
     plt.plot(x, g_GaCl, color='blue')
     plt.plot(x, g_AlCl3, color='green')
     plt.legend((r'$G_{GaCl3}$', '$G_{AlCl}$'))
-    plt.xlabel('$x_{g}$')
-    plt.ylabel('$G_i$', rotation=0)
+    plt.xlabel('Доля $AlCl_3$ в газообразных хлоридах')
+    plt.ylabel('$G_i, кмоль/(м^{2}*с)$')
     plt.grid(True)
     plt.show()
 
-    plt.plot(x, v_e_AlGaN, color='yellow')
-    plt.xlabel('$x_{g}$')
-    plt.ylabel('$v^{e}_{AlGaN}$', rotation=0)
+    plt.plot(x, v_e_AlGaN, color='blue')
+    plt.xlabel('Доля $AlCl_3$ в газообразных хлоридах')
+    plt.ylabel('$v_{AlGaN}, нм/с$')
     plt.grid(True)
     plt.show()
 

@@ -39,11 +39,6 @@ def run_gradient_method(A, b, eps):
         for i in range(size):
             direction[i] = residuals[i] + tmp[i]
 
-    # print("Результат для метода сопряженных градиентов:",
-    #       *approximations,
-    #       "Количество шагов: {0}".format(steps),
-    #       sep='\n'
-    #       )
     return approximations, steps
 
 
