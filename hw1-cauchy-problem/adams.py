@@ -49,9 +49,11 @@ def adams_method(f, h, n, vec0, r, sigma=10, b=8 / 3):
         f4 = f(vec_4, sigma, b, r)
         vec_0 = vec_1
         vec_1 = vec_2
+        vec_2 = vec_3
         vec_3 = vec_4
         f0 = f1
         f1 = f2
+        f2 = f3
         f3 = f4
         lib.transpose_and_add(ans, vec_4)
 
